@@ -134,7 +134,7 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-bottom: 4vh;
+    padding-bottom: 1vh;
     z-index: 3;
 }
 .playerTrackPicture{
@@ -156,7 +156,8 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
 }
 .trackProgress{
     width: 100%;
-    margin-bottom: 5px;
+    
+    /* margin-bottom: 5px; */
 }
 .trackControls{
      width: 100%;
@@ -164,6 +165,7 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
     align-items: center;
     justify-content: space-around;
     background: #fff;;
+    padding-top: 2px;
 }
 .btn{
     list-style: none;
