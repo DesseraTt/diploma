@@ -1,0 +1,72 @@
+Date : 2022-06-06 20:20:36
+Directory : c:\Users\igor2\Desktop\diplom\musicApp
+Total : 35 files,  22696 codes, 76 comments, 200 blanks, all 22972 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |     21,028 |          0 |          2 |     21,030 |
+| Vue        |         28 |      1,409 |         50 |        140 |      1,599 |
+| JavaScript |          2 |        206 |         26 |         17 |        249 |
+| Markdown   |          2 |         44 |          0 |         37 |         81 |
+| SCSS       |          1 |          9 |          0 |          4 |         13 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                           | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                              |         35 |     22,696 |         76 |        200 |     22,972 |
+| client                                                                         |         35 |     22,696 |         76 |        200 |     22,972 |
+| client\assets                                                                  |          1 |          9 |          0 |          4 |         13 |
+| client\assets\scss                                                             |          1 |          9 |          0 |          4 |         13 |
+| client\components                                                              |         19 |        812 |         40 |         94 |        946 |
+| client\components\UI                                                           |         11 |        383 |         33 |         47 |        463 |
+| client\layouts                                                                 |          2 |         82 |          1 |          8 |         91 |
+| client\pages                                                                   |          7 |        515 |          9 |         38 |        562 |
+| client\pages\pages                                                             |          5 |        412 |          9 |         27 |        448 |
+| client\store                                                                   |          2 |        183 |         19 |         14 |        216 |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                       | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\igor2\Desktop\diplom\musicApp\client\README.md                        | Markdown   |         38 |          0 |         32 |         70 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\assets\scss\main.scss            | SCSS       |          9 |          0 |          4 |         13 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\AgendaMainPage.vue    | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\AllMainPage.vue       | Vue        |         17 |          0 |          3 |         20 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\ChartsMainPage.vue    | Vue        |         28 |          0 |          2 |         30 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\MoodsMainPage.vue     | Vue        |         12 |          0 |          3 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\Navbar.vue            | Vue        |         48 |          3 |          8 |         59 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\Player.vue            | Vue        |        176 |          0 |         18 |        194 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\Tabs.vue              | Vue        |         89 |          3 |          5 |         97 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\TrackHolder.vue       | Vue        |         48 |          1 |          4 |         53 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\AlbumContainer.vue | Vue        |         48 |          8 |          4 |         60 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\InputForm.vue      | Vue        |         55 |          0 |          5 |         60 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\LikeBtn.vue        | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\MyButton.vue       | Vue        |         30 |          1 |          1 |         32 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\MyInput.vue        | Vue        |         26 |          0 |          2 |         28 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\NextBtn.vue        | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\PauseBtn.vue       | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\PlayBtn.vue        | Vue        |         11 |         23 |          3 |         37 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\PreviousBtn.vue    | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\TrackContainer.vue | Vue        |         76 |          1 |          6 |         83 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\components\UI\VolumeBtn.vue      | Vue        |         93 |          0 |         10 |        103 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\layouts\UserPageLayout.vue       | Vue        |         39 |          0 |          4 |         43 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\layouts\default.vue              | Vue        |         43 |          1 |          4 |         48 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\nuxt.config.js                   | JavaScript |         29 |          7 |          8 |         44 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\package-lock.json                | JSON       |     21,000 |          0 |          1 |     21,001 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\package.json                     | JSON       |         28 |          0 |          1 |         29 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\UserPage.vue               | Vue        |         49 |          0 |          4 |         53 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\index.vue                  | Vue        |         54 |          0 |          7 |         61 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\pages\AlbumPage.vue        | Vue        |         11 |          0 |          4 |         15 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\pages\MainPage.vue         | Vue        |         42 |          0 |          4 |         46 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\pages\ProfilePage.vue      | Vue        |        143 |          8 |          8 |        159 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\pages\SearchPage.vue       | Vue        |         86 |          1 |          5 |         92 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\pages\pages\TrackPage.vue        | Vue        |        130 |          0 |          6 |        136 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\store\README.md                  | Markdown   |          6 |          0 |          5 |         11 |
+| c:\Users\igor2\Desktop\diplom\musicApp\client\store\store.js                   | JavaScript |        177 |         19 |          9 |        205 |
+| Total                                                                          |            |     22,696 |         76 |        200 |     22,972 |
++--------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
