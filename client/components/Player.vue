@@ -12,7 +12,7 @@
         <div class="trackControls" v-if="currentTrack">
             <div  class="leftControls">
                 <li class="btn" @click="goToPreviousTrack"><PreviousBtn/></li>
-                <li class="btn" v-if="isPlaying" @click="playPause"><PlayBtn/></li>
+                <li class="btn" v-if="isPlaying" @click="playPause" ><PlayBtn/></li>
                 <li class="btn" v-else @click="playPause"><PauseBtn/></li>
                 <li class="btn" @click="goToNextTrack"><NextBtn/></li>
             </div>
@@ -65,7 +65,15 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
             } 
         },
         
-
+        mounted(){
+            window.addEventListener('keyup',this.handleKeyUp)
+            document.addEventListener('keydown',(e)=>{
+                if (e.code=='Space'){
+                   e.preventDefault()
+                }
+               
+            })
+        },
     components: {PlayBtn, PauseBtn, NextBtn, PreviousBtn, LikeBtn, VolumeBtn},
     methods:{
         ...mapActions({
@@ -100,6 +108,11 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
           imageSrc(pic){
                 return `http://localhost:5000/${pic}`
             },
+            handleKeyUp(e){
+                if(e.code == 'Space'){
+                    this.playPause()
+                }
+            }
     },
 }
 </script>

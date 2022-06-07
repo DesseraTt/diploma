@@ -109,6 +109,29 @@ import axios from "axios"
         searchTracks(state,tracks){
             state.tracks=tracks
         },
+        //addComment
+        addComment(state,commentText){
+            let comment = {
+                text:commentText,
+                username:state.user.email,
+                trackId:state.currentTrack._id
+            }
+            console.log(comment)
+            state.currentTrack.comments.unshift(comment)
+            axios.post('http://localhost:5000/tracks/comment',comment)
+        },
+        //addTag
+        addTag(state,tagText){
+            let tag = {
+                text:tagText,
+                username:state.user.email,
+                trackId:state.currentTrack._id
+
+            }
+            // console.log(tag)
+            state.currentTrack.tags.filter(el=>el.text==tagText).length==0?state.currentTrack.tags.push(tag):console.log('tag already exists')
+            axios.post('http://localhost:5000/tracks/tag',tag)
+        },
     }
     export const actions={
         authorization({commit},user){
@@ -183,9 +206,11 @@ import axios from "axios"
         //  playTrack({commit},id){
         //    commit('playTrack',id)
         // },
-        goTotrack({commit},track){
+       async  goTotrack({commit},track){
             commit('playPause')
-            commit('goTotrack',track)
+            let resp = await axios.get(`http://localhost:5000/tracks/`+track._id)
+            // console.log(resp)
+            commit('goTotrack',resp.data)
             let audio =  document.getElementById('player')
             audio.onloadedmetadata=function(){
             commit('changeTrackLength',(Math.floor(audio.duration)))
@@ -194,6 +219,13 @@ import axios from "axios"
             commit('watchTrackProgress',audio.currentTime)
             },1)
             axios.post('http://localhost:5000/tracks/listen/'+track._id)
+        },
+        addComment({commit},commentText){
+            commit('addComment',commentText)
+        },
+        addTag({commit},tagText){
+            console.log(tagText.target.value)
+           commit('addTag',tagText.target.value)
         },
         logout({commit}){
             commit('logout')

@@ -2,7 +2,7 @@
     <div class="trackholder">
             <h2>Список Треков</h2>
             <div v-for="item in tracks" :key="item.id">
-            <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" @click.prevent.self="gotoTrack"/>  
+            <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" @click.native.stop="gotoTrack"/>  
             </div>
     </div>
 </template>
@@ -40,7 +40,7 @@ import TrackContainer from './UI/TrackContainer.vue'
 .trackholder{
     width: 350px;
     padding: 20px;
-    height: inherit;
+    height: 100%;
     border-left: 1px #e8e8e8 solid;
     overflow-y: auto;
 }
