@@ -1,5 +1,6 @@
 <template>
     <div class="charts">
+      <!-- <AlbumContainer/>
       <AlbumContainer/>
       <AlbumContainer/>
       <AlbumContainer/>
@@ -8,8 +9,7 @@
       <AlbumContainer/>
       <AlbumContainer/>
       <AlbumContainer/>
-      <AlbumContainer/>
-      <AlbumContainer/>
+      <AlbumContainer/> -->
     </div>
 </template>
 

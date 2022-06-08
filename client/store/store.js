@@ -10,6 +10,7 @@ import axios from "axios"
         pages:[{id:1,text: "Главная",component:'MainPage'},{id:2, text: "Альбомы", text: "Альбомы и треки" ,component:'AlbumPage'},{id:3, text: "Загрузить трек" ,component:'TrackPage'},{id:4, text: "Профиль",component:'ProfilePage'},{id:5,text: `<i class="gg-search"></i>`,component:'SearchPage'}],
         currentTrack:'' ,
         tracks:[] ,
+        album:[],
         user: { login:'', password:''},
     })
 
@@ -19,6 +20,10 @@ import axios from "axios"
         // }
     }
     export const mutations={
+        getAlbum(state,album){
+            state.album=album
+            
+        },
         checkLocalStorageUser(state){
             if(localStorage.getItem('user')){
                 state.user=JSON.parse(localStorage.getItem('user'))
@@ -116,7 +121,7 @@ import axios from "axios"
                 username:state.user.email,
                 trackId:state.currentTrack._id
             }
-            console.log(comment)
+            // console.log(comment)
             state.currentTrack.comments.unshift(comment)
             axios.post('http://localhost:5000/tracks/comment',comment)
         },
@@ -232,6 +237,14 @@ import axios from "axios"
         },
         checkLocalStorageUser({commit}){
             commit('checkLocalStorageUser')
-        }
-
+        },
+        async getAlbum({commit},id){
+            // console.log('http://localhost:5000/album/' + id)
+            await axios.get('http://localhost:5000/album/'+ id)
+            .then(res=>{
+             
+                commit('getAlbum',res.data)
+            })
+         
+        },       
     }

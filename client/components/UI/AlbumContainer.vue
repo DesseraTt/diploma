@@ -1,29 +1,43 @@
 <template>
     <div class="album" @mouseenter="mouseIsOver=true" @mouseleave="mouseIsOver=false">
-        <!-- <div class="albumImage" :style="{`background:${album.image}`}"></div> -->
-        <div class="albumImage" style="background-image:url('https://i.pinimg.com/originals/42/60/64/426064e6c6f404d2663afa4c9808cee7.gif';background-size: cover;">
-             <div class="controls" v-if="mouseIsOver">
+        <div class="albumImage" :style="getAlbumImage(album.picture)" @click="getAlbumTracks">
+        <!-- <div class="albumImage" style="'background-image:'';background-size: cover;'"> -->
+             <div class="controls" >
                  <i class="gg-play-button-o"  ></i> 
             <i class="gg-heart"></i>
             </div>
            
         </div>
-        <!-- <div class="controls">
-                 <i class="gg-play-button-o"  ></i> 
-            <i class="gg-heart"></i>
+            <!-- <div class="controls">
+                <i class="gg-play-button-o"  ></i> 
+                <i class="gg-heart"></i>
             </div> -->
-        <p class="albumTitle">9 krutoy</p>
-        <p class="albumArtist">gargamel</p>
+        <p class="albumTitle">{{album.name}}</p>
     </div>
 </template>
 
 <script>
     export default {
+        props:{
+            album:{
+                name:String,
+                picture:String,
+            },
+        },
         data(){
             return{
                 mouseIsOver:false,     
             }
         },
+        methods:{
+            getAlbumImage(pic){
+                return `background-image:url('http://localhost:5000/${pic}');background-size: cover;`
+            },
+            getAlbumTracks(){
+             console.log(this.album)
+                // this.changeActivePage(5)
+            },
+        }
         
     }
 </script>
@@ -53,6 +67,7 @@
     width: 150px;
     height: 150px;
     // object-fit: cover;
+    margin-bottom: 10px;
 }
 .albumArtist{
     font-size: 12px;

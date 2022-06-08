@@ -18,10 +18,14 @@ import TrackContainer from './UI/TrackContainer.vue'
             tracks(){
                 return this.$store.state.store.tracks
             },
+             user(){
+                return this.$store.state.store.user
+            },
         },
       methods:{
             ...mapActions({
             getTracks:'store/getTracks',
+            getAlbum:'store/getAlbum',
             changeActivePage:'store/changeActivePage',
             }),
             gotoTrack(){
@@ -29,9 +33,7 @@ import TrackContainer from './UI/TrackContainer.vue'
                 // this.getTracks(track)
             },
       },
-       mounted(){
-           this.getTracks();
-      },
+     
       }
      
 </script>
