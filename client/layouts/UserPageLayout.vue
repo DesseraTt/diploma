@@ -29,6 +29,7 @@ import TrackHolder from "../components/TrackHolder.vue";
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   overflow-y: hidden;
 }
 .page{
     display: flex;

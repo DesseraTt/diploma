@@ -48,9 +48,9 @@ export default {
 <style>
 .component{
   padding: 0 0 0  20px;
-  width: 800px;
-margin-bottom: 20px;
-  height: 100%;
+  width: 700px;
+  margin-bottom: 20px;
+  height: inherit;
 }
 @media (max-width:1100px) {
   .component{width:600px}

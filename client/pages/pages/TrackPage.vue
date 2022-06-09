@@ -11,6 +11,10 @@
         v-model="artist"
         :placeholder="placeholders[1]"
     />
+    <!-- <my-input
+        v-model="genre"
+        :placeholder="placeholders[2]"
+    /> -->
 
     <div class="files">
             <div class="file">
@@ -59,7 +63,8 @@ import MyButton from '../../components/UI/MyButton.vue'
                 name:'',
                 artist:'',
                 text:'',
-                placeholders:["Название трека","Исполнитель"],
+                genre:'',
+                placeholders:["Название трека","Исполнитель","Жанр"],
                 isAudioSelected:false,
                 isPictureSelected:false,
             }
@@ -75,8 +80,17 @@ import MyButton from '../../components/UI/MyButton.vue'
                         bodyFormData.append('picture',pic.files[0])
                         bodyFormData.append('audio',audio.files[0])
                         bodyFormData.append('name',this.name)
+                        bodyFormData.append('genre',this.genre)
                         axios.post('http://localhost:5000/tracks',bodyFormData)
-                        .then( resp=> console.log(resp))
+                        .then( resp=> {
+                            console.log(resp)
+                            this.name=''
+                             this.artist=''
+                             this.text=''
+                             this.genre=''
+                        audio = null
+                        pic = null
+                        })
                         .catch(e=>console.log(e))
                 }
             },
@@ -116,7 +130,7 @@ align-items: center;
     justify-content: center;
 }
 .trackText{
-
+width: 100%;
 }
 .example-1 .form-group{padding:1em;margin:1em;}
 .example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}

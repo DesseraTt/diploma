@@ -31,7 +31,7 @@
            </li>
           
             <div class="rightControls">
-                <li class="btn" @click="likeTrack"><LikeBtn/></li>
+                <li class="btn" @click="likeTrack(currentTrack)"><LikeBtn/></li>
                 <li class="btn"><VolumeBtn/></li>
             </div>
            
@@ -62,17 +62,20 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
             },
             currentTrack(){
                 return this.$store.state.store.currentTrack
-            } 
+            } ,
+             albums(){
+                return this.$store.state.store.albums
+            }
         },
         
         mounted(){
-            window.addEventListener('keyup',this.handleKeyUp)
-            document.addEventListener('keydown',(e)=>{
-                if (e.code=='Space'){
-                   e.preventDefault()
-                }
+            // window.addEventListener('keyup',this.handleKeyUp)
+            // document.addEventListener('keydown',(e)=>{
+            //     if (e.code=='Space'){
+            //        e.preventDefault();
+            //     }
                
-            })
+            // })
         },
     components: {PlayBtn, PauseBtn, NextBtn, PreviousBtn, LikeBtn, VolumeBtn},
     methods:{
@@ -82,7 +85,8 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
             goToPreviousTrack:'store/goToPreviousTrack',
             likeTrack:'store/likeTrack',
             changeTrackProgress:'store/changeTrackProgress',
-            changeVolume:'store/changeVolume'
+            changeVolume:'store/changeVolume',
+            addTrackToAlbum:'store/addTrackToAlbum',
         }),
         convertSeconds(secs){
             let hrs = 0; let mins = 0;
@@ -112,7 +116,15 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
                 if(e.code == 'Space'){
                     this.playPause()
                 }
-            }
+            },
+             likeTrack(track){
+                 console.log(this.albums)
+                 let obj={
+                        album:this.albums[0],
+                        track:track
+                 }
+                this.addTrackToAlbum(obj)
+            },
     },
 }
 </script>
@@ -149,6 +161,7 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
     justify-content: center;
     padding-bottom: 1vh;
     z-index: 3;
+        color:rgb(61, 61, 61);
 }
 .playerTrackPicture{
     height: 45px;

@@ -1,9 +1,12 @@
 <template>
     <div class="trackholder">
-            <h2>Список Треков</h2>
+            
+            <h2 v-if="activePageID!=5"> {{album.name}}</h2>
+            <h2 v-else>Найдено: </h2>
             <div v-for="item in tracks" :key="item.id">
-            <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" @click.native.stop="gotoTrack"/>  
+                <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" @click.native.stop="gotoTrack"/>  
             </div>
+            
     </div>
 </template>
 
@@ -21,6 +24,13 @@ import TrackContainer from './UI/TrackContainer.vue'
              user(){
                 return this.$store.state.store.user
             },
+             album(){
+                return this.$store.state.store.album
+            },
+            activePageID(){
+                return this.$store.state.store.activePageID
+            },
+            
         },
       methods:{
             ...mapActions({
@@ -29,7 +39,7 @@ import TrackContainer from './UI/TrackContainer.vue'
             changeActivePage:'store/changeActivePage',
             }),
             gotoTrack(){
-                this.changeActivePage(5)
+                // this.changeActivePage(5)
                 // this.getTracks(track)
             },
       },
@@ -40,7 +50,7 @@ import TrackContainer from './UI/TrackContainer.vue'
 
 <style >
 .trackholder{
-    width: 350px;
+    width: 450px;
     padding: 20px;
     height: 100%;
     border-left: 1px #e8e8e8 solid;

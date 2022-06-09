@@ -33,6 +33,7 @@ import TrackHolder from "../components/TrackHolder.vue";
     height: 95vh;
   overflow-y:scroll ;
     flex: 1 0 auto;
+    color:rgb(61, 61, 61);
 }
 .page{
     display: flex;

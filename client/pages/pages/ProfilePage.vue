@@ -32,9 +32,9 @@
      </div>
             
         <div class="profileSideArea">
-                <p class="profileLogin item">Логин: {{user.email}}</p>
-                <!-- <p class="profileName item">Имя: {{user.name}}</p> -->
-                <p class="profileNumofTracks item">Число треков: 0</p>
+                <p class="profileLogin item">Почта: {{user.email}}</p>
+                <p class="profileName item">Имя: {{user.name}}</p>
+                <!-- <p class="profileNumofTracks item">Число треков: 0</p> -->
                 <!-- <p class="profileNumofTracks item">Самый популярный жанр: смех</p> -->
                 <p class="profileNumofTracks item">Дата регистрации: {{user.date}}</p>
                  <my-button style="width:80%;align-self:center;margin-top:20px" @click.native="logout">Выйти из профиля</my-button>
@@ -42,20 +42,7 @@
         </div>
     </div>
     <div class="notLogged" v-else>
-        <form
-            @submit.prevent
-            class="form"
-            ref="input"
-        >
-            <input-form
-                v-model="userParams"
-            />
-            <div class="buttons">
-            <my-button @click.native="authorize">Войти</my-button>
-            <my-button @click.native="register">Зарегистрироваться</my-button>
-            </div>
-           
-        </form>
+            <my-button @click.native="$router.push('/UserPage')">Перейти на страницу авторизации</my-button>
     </div>
     <!-- <AlbumPage/> -->
 </div>
@@ -86,6 +73,7 @@ import axios from 'axios'
         methods:{
             logout(){
                 this.logoutS()
+                this.$router.push('/UserPage')
             },
             ...mapActions({
                 logoutS:"store/logout",
@@ -94,6 +82,7 @@ import axios from 'axios'
             }),
              authorize(){
             this.authorization(this.userParams)
+              
         },
                 register(){
                 this.registration(this.userParams)
@@ -107,11 +96,13 @@ import axios from 'axios'
                     newFormData.append('_id',this.user._id)
                    await  axios.post('http://localhost:5000/users/addPicture',newFormData)
                    let temp = {
-                       login:this.user.email,
+                        email:this.user.email,
                           password:this.user.password,
                    }
                      this.authorization(temp)
+                      
                  },
+              
     }}
 </script>
 
@@ -148,6 +139,10 @@ import axios from 'axios'
     object-fit: cover;
     border-radius: 50%;
 
+}
+.file{
+    display: flex;
+    justify-content: center;
 }
 .example-1 .form-group{padding:1em;margin:1em}
 .example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}

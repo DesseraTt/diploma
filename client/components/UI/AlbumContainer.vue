@@ -1,12 +1,12 @@
 <template>
     <div class="album" @mouseenter="mouseIsOver=true" @mouseleave="mouseIsOver=false">
-        <div class="albumImage" :style="getAlbumImage(album.picture)" @click="getAlbumTracks">
+        <div class="albumImage" :style="getAlbumImage(album.picture)" >
         <!-- <div class="albumImage" style="'background-image:'';background-size: cover;'"> -->
-             <div class="controls" >
+             <!-- <div class="controls" >
                  <i class="gg-play-button-o"  ></i> 
             <i class="gg-heart"></i>
             </div>
-           
+            -->
         </div>
             <!-- <div class="controls">
                 <i class="gg-play-button-o"  ></i> 
@@ -33,10 +33,10 @@
             getAlbumImage(pic){
                 return `background-image:url('http://localhost:5000/${pic}');background-size: cover;`
             },
-            getAlbumTracks(){
-             console.log(this.album)
-                // this.changeActivePage(5)
-            },
+            // getAlbumTracks(){
+            // //  console.log(this.album)
+            //     // this.changeActivePage(5)
+            // },
         }
         
     }
@@ -66,7 +66,7 @@
 .albumImage{
     width: 150px;
     height: 150px;
-    // object-fit: cover;
+    object-fit: contain;
     margin-bottom: 10px;
 }
 .albumArtist{

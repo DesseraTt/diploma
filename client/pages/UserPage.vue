@@ -4,13 +4,16 @@
       class="form"
       ref="input"
   >
-    <input-form
-        v-model="userParams"
-    />
+   <div class="inputs">
+    <my-input v-model="email" placeholder="email"/>
+    <my-input v-model="password" type="password" placeholder="Пароль"/>
+  </div>
+  
     <div class="buttons">
       <my-button @click.native="authorize">Войти</my-button>
       <my-button @click.native="register">Зарегистрироваться</my-button>
     </div>
+
   </form>
 
 </template>
@@ -24,7 +27,8 @@ export  default{
     layout:"UserPageLayout",
      data(){
     return{
-      
+        email:'',
+        password:'',
     }
      },
      computed:{
@@ -39,13 +43,20 @@ export  default{
       }),
 
         authorize(){
-            this.authorization(this.userParams)
-            if(this.user.isLogged){
-              this.$router.push("/")
+          let user={
+            email:this.email,
+            password:this.password
+          }
+          console.log(user)
+          if(user.email && user.password){
+            console.log("Вход выполнен")
+            this.authorization(user)
+             this.$router.push("/")
             }
+            // console.log("Вход не выполнен")
         },
         register(){
-           this.registration(this.user)
+          this.$router.push("/RegisterPage")
         },
     },
 

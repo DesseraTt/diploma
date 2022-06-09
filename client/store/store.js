@@ -10,6 +10,7 @@ import axios from "axios"
         pages:[{id:1,text: "Главная",component:'MainPage'},{id:2, text: "Альбомы", text: "Альбомы и треки" ,component:'AlbumPage'},{id:3, text: "Загрузить трек" ,component:'TrackPage'},{id:4, text: "Профиль",component:'ProfilePage'},{id:5,text: `<i class="gg-search"></i>`,component:'SearchPage'}],
         currentTrack:'' ,
         tracks:[] ,
+        albums:[],
         album:[],
         user: { login:'', password:''},
     })
@@ -21,13 +22,14 @@ import axios from "axios"
     }
     export const mutations={
         getAlbum(state,album){
+            // console.log(album)
             state.album=album
-            
+            state.tracks = album.tracks
         },
         checkLocalStorageUser(state){
             if(localStorage.getItem('user')){
                 state.user=JSON.parse(localStorage.getItem('user'))
-                state.user.picture = `http://localhost:5000/${state.user.picture}`
+                // state.user.picture = `http://localhost:5000/${state.user.picture}`
                 // console.log(state.user)
             }
         },
@@ -66,11 +68,11 @@ import axios from "axios"
         }},
         authorization(state,user){
             state.user = user
-            localStorage.user = JSON.stringify(user)
-            localStorage.setItem('user',JSON.stringify(user))
             state.user.isLogged = true
             if(state.user.picture)
             state.user.picture = `http://localhost:5000/${user.picture}`
+            localStorage.user = JSON.stringify(user)
+            localStorage.setItem('user',JSON.stringify(user))
         },
         registration(state,user){
             state.user = user
@@ -114,6 +116,30 @@ import axios from "axios"
         searchTracks(state,tracks){
             state.tracks=tracks
         },
+        //add track to album
+        addTrackToAlbum(state,obj){
+            let {track,album}=obj
+            console.log(track)
+            console.log(album)
+            console.log(`track ${track._id} added to album ${album._id}`)
+            let reqBody={
+                trackId:track,
+                albumId:album
+            }
+            // if(state.album.tracks.filter(el=>el==track._id).length==0){
+                axios.post('http://localhost:5000/album/track',reqBody)
+               
+            // }
+            state.album.tracks.push(track)
+            //add track to albums
+            state.albums.forEach(el=>{
+                if(el._id==album._id){
+                    el.tracks.push(track)
+                }
+            }
+            )
+            
+        },
         //addComment
         addComment(state,commentText){
             let comment = {
@@ -137,11 +163,16 @@ import axios from "axios"
             state.currentTrack.tags.filter(el=>el.text==tagText).length==0?state.currentTrack.tags.push(tag):console.log('tag already exists')
             axios.post('http://localhost:5000/tracks/tag',tag)
         },
+        //get user albums
+        getUserAlbums(state,albums){
+            // console.log(albums)
+            state.albums = albums
+        }
     }
     export const actions={
         authorization({commit},user){
            let  reqBody = {
-                email:user.login,
+                email:user.email,
                 password:user.password
             }
             axios.post('http://localhost:5000/users/authorization',reqBody)
@@ -151,12 +182,22 @@ import axios from "axios"
         },
         registration({commit},user){
            let  reqBody = new FormData()
-           reqBody.append('email',user.login)
-              reqBody.append('password',user.password)
+           reqBody.append('name',user.name)
+           reqBody.append('email',user.email)
+            reqBody.append('password',user.password)
             axios.post('http://localhost:5000/users',reqBody)
             .then(resp=>{
+                if(resp){
                 commit('registration',resp.data)
-              commit('authorization',resp.data)
+                let authBody = new FormData()
+                authBody.append('email',user.email)
+                authBody.append('password',user.password)
+                commit('authorization',authBody)
+                }else{
+                    console.log('error')
+                }
+            }).catch(e=>{
+                console.log("Ошибка регистрации")
             })
           
         },
@@ -242,9 +283,27 @@ import axios from "axios"
             // console.log('http://localhost:5000/album/' + id)
             await axios.get('http://localhost:5000/album/'+ id)
             .then(res=>{
-             
+                // console.log(res.data)
                 commit('getAlbum',res.data)
             })
          
-        },       
+        },
+        async getUserAlbums({commit},id){
+            let reqBody={
+                userId:id
+            }
+            await axios.post('http://localhost:5000/users/albums',reqBody)
+            .then(res=>{
+                // console.log(res.data)
+                commit('getUserAlbums',res.data)
+            })
+        
+        },
+        addTrackToAlbum({commit},obj){
+           console.log(obj.track)
+              console.log(obj.album)
+        commit('addTrackToAlbum',obj)
+        },
+        //get all albums
+                
     }

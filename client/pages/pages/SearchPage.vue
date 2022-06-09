@@ -11,7 +11,7 @@
                 <p class="contentItem">  Название: {{currentTrack.name}} </p>
                 <p class="contentItem">  Исполнитель: {{currentTrack.artist}} </p>
                 <p class="contentItem">  Прослушиваний: {{currentTrack.listens}} </p>
-                <p class="contentItem">  Жанр: {{currentTrack.genre}} </p>
+                <!-- <p class="contentItem">  Жанр: {{currentTrack.genre}} </p> -->
             </div>
         </div>
         <div class="trackTextWrapper" > 
@@ -128,10 +128,13 @@ import axios from 'axios'
 }
 .notOpenedText{
   display:none;
+  width: 50%;
   
 }
 .openedText{
-    display:block;
+    display:flex;
+    justify-content: center;
+    width: 50%;
 }
 .trackTextWrapper{
     display: flex;
@@ -150,8 +153,10 @@ import axios from 'axios'
     // flex-direction: column;
     justify-content:space-around;
     align-items: center;
+    margin: 30px 0;
 }
 .trackInfoContent{
+    margin-left: 30px;
     width: 100%;
     display:flex;
     flex-direction:column;
@@ -169,10 +174,10 @@ import axios from 'axios'
     margin: 50px 0 20px 0;
 }
 .trackImage{
-    height: 300px;
-    width: 300px;
-    object-fit: contain;
-}
+     height: 250px;
+    width:250px;
+    object-fit: cover;
+    border-radius: 50%;}
 .item{
     list-style: none;
     display: flex;
