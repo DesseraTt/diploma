@@ -1,10 +1,11 @@
 <template>
+
   <div>
     <keep-alive>
  <component :is="pages.filter(item=>item.id ==activePageID)[0].component" class="component"></component>
     </keep-alive>
-   
   </div>
+  
 </template>
 
 
@@ -22,12 +23,18 @@ export default {
     components: { Tabs, MainPage,AlbumPage,TrackPage,ProfilePage,SearchPage},
     mounted(){
        this.checkLocalStorageUser();
+
+           this.getUserAlbums(this.user._id)
+
     },
     computed:{ activePageID(){
                 return this.$store.state.store.activePageID
             },
             pages(){
                 return this.$store.state.store.pages
+            },
+            user(){
+                return this.$store.state.store.user
             },
             },
     data(){
@@ -38,7 +45,7 @@ export default {
       methods:{
         ...mapActions({
             checkLocalStorageUser:"store/checkLocalStorageUser",
-            
+            getUserAlbums:"store/getUserAlbums",
         }),
       }
       

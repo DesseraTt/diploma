@@ -131,6 +131,8 @@ align-items: center;
 }
 .trackText{
 width: 100%;
+outline: none;
+border: 1px solid #facc44;
 }
 .example-1 .form-group{padding:1em;margin:1em;}
 .example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}

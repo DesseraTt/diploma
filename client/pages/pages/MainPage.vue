@@ -1,7 +1,7 @@
 <template>
     <div class="main">
         <h1>Главное</h1>
-        <Tabs  :tabs="MainTabs" @update="changeActiveMainPageTab"/>
+        <Slider/>
         <keep-alive>
           <component :is="MainTabs.filter(item=>item.id ==activeMainPageTabID)[0].component" class="component"></component>
         </keep-alive>
@@ -10,9 +10,10 @@
 
 <script>
 import Tabs from '@/components/Tabs.vue'
+import Slider from '@/components/UI/Slider.vue'
 import { mapActions } from 'vuex'
     export default {
-            components: { Tabs},
+            components: { Tabs,Slider},
          data(){
       return{
          

@@ -1,6 +1,6 @@
 <template>
     <div>
-    <h1>тут будут Альбомы</h1>
+    <h1>Ваши альбомы</h1>
     <div class="albums">
            <AlbumContainer v-for="item in albums" :key="item._id" :album="item" @click.native="getAlbum(item._id)"/>
     </div>
@@ -23,12 +23,7 @@
              return this.$store.state.store.user
          },
      },
-       mounted(){
-    
-           this.getUserAlbums(this.user._id)
-           console.log(this.user)
-           console.log(this.albums)
-      },
+
       methods:{
           ...mapActions({
             getTracks:'store/getTracks',

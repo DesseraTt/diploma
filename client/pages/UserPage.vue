@@ -11,7 +11,7 @@
   
     <div class="buttons">
       <my-button @click.native="authorize">Войти</my-button>
-      <my-button @click.native="register">Зарегистрироваться</my-button>
+      <my-button @click.native="register" style="width:180px">Зарегистрироваться</my-button>
     </div>
 
   </form>
@@ -42,17 +42,19 @@ export  default{
         registration: "store/registration"
       }),
 
-        authorize(){
+        async authorize(){
           let user={
             email:this.email,
             password:this.password
           }
-          console.log(user)
           if(user.email && user.password){
             console.log("Вход выполнен")
-            this.authorization(user)
-             this.$router.push("/")
+           await  this.authorization(user)
+         
             }
+           
+             if(this.user.name)
+                this.$router.push("/")
             // console.log("Вход не выполнен")
         },
         register(){
@@ -62,3 +64,10 @@ export  default{
 
 }
 </script>
+<style>
+.buttons{
+  display:flex;
+  justify-content:space-between;
+  margin-top:20px;
+}
+</style>

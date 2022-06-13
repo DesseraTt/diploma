@@ -7,7 +7,14 @@ import axios from "axios"
         activePageID:1,
         activeMainPageTabID:1,
         MainTabs: [{ id: 1, text: "Всё",component:'AllMainPage' }, { id: 2, text: "Новые релизы",component:'AgendaMainPage' }, { id: 3, text: "Чарты",component:'ChartsMainPage' }, { id: 4, text: "Настроения и жанры",component:'MoodsMainPage' },],
-        pages:[{id:1,text: "Главная",component:'MainPage'},{id:2, text: "Альбомы", text: "Альбомы и треки" ,component:'AlbumPage'},{id:3, text: "Загрузить трек" ,component:'TrackPage'},{id:4, text: "Профиль",component:'ProfilePage'},{id:5,text: `<i class="gg-search"></i>`,component:'SearchPage'}],
+        
+        pages:[
+            {id:1,text: "Главная",component:'MainPage'},
+            {id:2, text: "Альбомы", text: "Альбомы" ,component:'AlbumPage'},
+            {id:3, text: "Загрузить трек" ,component:'TrackPage'},
+            {id:4, text: "Профиль",component:'ProfilePage'},
+            {id:5,text: `<i class="gg-search"></i>`,component:'SearchPage'}
+        ],
         currentTrack:'' ,
         tracks:[] ,
         albums:[],
@@ -66,14 +73,15 @@ import axios from "axios"
             // state.currentTrack = state.tracks[state.currentTrackID]
             console.log(`going to previous track ${state.currentTrackID}`)
         }},
-        authorization(state,user){
+       async authorization(state,user){
             state.user = user
-            state.user.isLogged = true
             if(state.user.picture)
             state.user.picture = `http://localhost:5000/${user.picture}`
             localStorage.user = JSON.stringify(user)
             localStorage.setItem('user',JSON.stringify(user))
-        },
+            },
+            
+
         registration(state,user){
             state.user = user
             localStorage.user = JSON.stringify(user)
@@ -123,21 +131,24 @@ import axios from "axios"
             console.log(album)
             console.log(`track ${track._id} added to album ${album._id}`)
             let reqBody={
-                trackId:track,
-                albumId:album
+                trackId:track._id,
+                albumId:album._id
             }
             // if(state.album.tracks.filter(el=>el==track._id).length==0){
                 axios.post('http://localhost:5000/album/track',reqBody)
                
             // }
-            state.album.tracks.push(track)
+            // state.album.tracks.push(track)
             //add track to albums
             state.albums.forEach(el=>{
                 if(el._id==album._id){
+                    console.log(el.tracks)
                     el.tracks.push(track)
                 }
             }
+            
             )
+            console.log(state.albums)
             
         },
         //addComment
@@ -153,6 +164,7 @@ import axios from "axios"
         },
         //addTag
         addTag(state,tagText){
+            if(tagText.length>0){
             let tag = {
                 text:tagText,
                 username:state.user.email,
@@ -162,23 +174,31 @@ import axios from "axios"
             // console.log(tag)
             state.currentTrack.tags.filter(el=>el.text==tagText).length==0?state.currentTrack.tags.push(tag):console.log('tag already exists')
             axios.post('http://localhost:5000/tracks/tag',tag)
+        }
         },
         //get user albums
         getUserAlbums(state,albums){
-            // console.log(albums)
+            
             state.albums = albums
+            console.log(state.albums)
         }
     }
     export const actions={
-        authorization({commit},user){
-           let  reqBody = {
+       async authorization({commit},user){
+            let  reqBody = {
                 email:user.email,
                 password:user.password
             }
-            axios.post('http://localhost:5000/users/authorization',reqBody)
-            .then(resp=>{
-                commit('authorization',resp.data)
+            let req = await  axios.post('http://localhost:5000/users/authorization',reqBody)
+            .catch(e=>{
+                console.log(e.response)
+                alert("Неверный логин или пароль")
             })
+            console.log(req)
+            if(req)
+           commit('authorization',req.data)
+           else
+              commit('authorization',{})
         },
         registration({commit},user){
            let  reqBody = new FormData()
@@ -249,9 +269,6 @@ import axios from "axios"
            }
             
          },
-        //  playTrack({commit},id){
-        //    commit('playTrack',id)
-        // },
        async  goTotrack({commit},track){
             commit('playPause')
             let resp = await axios.get(`http://localhost:5000/tracks/`+track._id)
@@ -287,6 +304,7 @@ import axios from "axios"
                 commit('getAlbum',res.data)
             })
          
+            
         },
         async getUserAlbums({commit},id){
             let reqBody={
@@ -300,8 +318,8 @@ import axios from "axios"
         
         },
         addTrackToAlbum({commit},obj){
-           console.log(obj.track)
-              console.log(obj.album)
+        //    console.log(obj.track)
+        //       console.log(obj.album)
         commit('addTrackToAlbum',obj)
         },
         //get all albums

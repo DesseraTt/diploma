@@ -20,7 +20,7 @@
           <li class="centerControls">
               
                      <img :src="imageSrc(currentTrack.picture)" class="playerTrackPicture">
-                      {{currentTrack.name}} - {{currentTrack.artist}}
+                      <p class="trackname"> {{currentTrack.name}} - {{currentTrack.artist}}</p>
             
              
             <div class="trackTimer">
@@ -118,11 +118,12 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
                 }
             },
              likeTrack(track){
-                 console.log(this.albums)
+                 console.log(this.albums[0])
                  let obj={
                         album:this.albums[0],
                         track:track
                  }
+                 console.log(obj)
                 this.addTrackToAlbum(obj)
             },
     },
@@ -130,6 +131,10 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
 </script>
 
 <style >
+.trackname{
+    text-overflow:ellipsis;white-space:nowrap;
+    margin-right: 5px;
+}
 .leftControls{
     width: 200px;
     display:flex;
