@@ -31,7 +31,8 @@
            </li>
           
             <div class="rightControls">
-                <li class="btn" @click="likeTrack(currentTrack)"><LikeBtn/></li>
+                <i class="gg-trash" @click.stop="dislikeTrack" v-if="isInFavourites"></i>
+                <i class="gg-heart" @click.stop="likeTrack" v-else></i>
                 <li class="btn"><VolumeBtn/></li>
             </div>
            
@@ -65,7 +66,14 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
             } ,
              albums(){
                 return this.$store.state.store.albums
-            }
+            },
+             isInFavourites(){
+               let a = this.albums[0].tracks.filter(item=>item ===this.currentTrack._id)
+               if (a.length>0){
+                   return true
+               }
+               return false
+            },
         },
         
         mounted(){
@@ -87,6 +95,7 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
             changeTrackProgress:'store/changeTrackProgress',
             changeVolume:'store/changeVolume',
             addTrackToAlbum:'store/addTrackToAlbum',
+            dislikeTracks:'store/dislikeTrack',
         }),
         convertSeconds(secs){
             let hrs = 0; let mins = 0;
@@ -117,20 +126,28 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
                     this.playPause()
                 }
             },
-             likeTrack(track){
+             likeTrack(){
                  console.log(this.albums[0])
                  let obj={
                         album:this.albums[0],
-                        track:track
+                        track:this.currentTrack
                  }
                  console.log(obj)
                 this.addTrackToAlbum(obj)
+            },
+             dislikeTrack(){
+                this.dislikeTracks(this.currentTrack._id)
+                console.log('remove from likes')
             },
     },
 }
 </script>
 
 <style >
+.gg-trash:hover,.gg-heart:hover{
+    cursor:pointer;
+    color: #facc44;
+}
 .trackname{
     text-overflow:ellipsis;white-space:nowrap;
     margin-right: 5px;

@@ -33,7 +33,7 @@
         <ul class="trackComments" >
             <h2>Комментарии</h2>
               <my-input type="text" class="searchInput" v-model="commentText" placeholder="Введите свой комментарий"/>
-              <MyButton  @click.native ="addComment(commentText)">Опубликовать</MyButton>
+              <MyButton  @click.native ="addComment">Опубликовать</MyButton>
             <li v-for="item in currentTrack.comments" :key='item._id' class="item">
                  <p class="usernameComment" v-if="item.username==user.email">Вы</p>
                 <p class="usernameComment" v-else>{{item.username}}</p>
@@ -86,7 +86,7 @@ import axios from 'axios'
         methods:{
             ...mapActions({
                  searchTracks:'store/searchTracks',
-                 addComment:'store/addComment',
+                 addComments:'store/addComment',
                  addTag:'store/addTag',
             }),
             imageSrc(pic){
@@ -99,6 +99,10 @@ import axios from 'axios'
                 setIsVisibleModal(value){
                     this.isVisibleModal = value
                 },
+            addComment(){
+                this.addComments(this.commentText)
+                this.commentText = 'a'
+            },
             
             
             

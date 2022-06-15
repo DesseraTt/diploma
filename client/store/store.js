@@ -6,11 +6,14 @@ import axios from "axios"
         trackLength:0,
         activePageID:1,
         activeMainPageTabID:1,
-        MainTabs: [{ id: 1, text: "Всё",component:'AllMainPage' }, { id: 2, text: "Новые релизы",component:'AgendaMainPage' }, { id: 3, text: "Чарты",component:'ChartsMainPage' }, { id: 4, text: "Настроения и жанры",component:'MoodsMainPage' },],
+        MainTabs: [{ id: 1, text: "Всё",component:'AllMainPage' },
+         { id: 2, text: "Новые релизы",component:'AgendaMainPage' },
+          { id: 3, text: "Чарты",component:'ChartsMainPage' },
+           { id: 4, text: "Настроения и жанры",component:'MoodsMainPage' },],
         
         pages:[
             {id:1,text: "Главная",component:'MainPage'},
-            {id:2, text: "Альбомы", text: "Альбомы" ,component:'AlbumPage'},
+            // {id:2, text: "Альбомы", text: "Альбомы" ,component:'AlbumPage'},
             {id:3, text: "Загрузить трек" ,component:'TrackPage'},
             {id:4, text: "Профиль",component:'ProfilePage'},
             {id:5,text: `<i class="gg-search"></i>`,component:'SearchPage'}
@@ -29,7 +32,7 @@ import axios from "axios"
     }
     export const mutations={
         getAlbum(state,album){
-            // console.log(album)
+            console.log(album)
             state.album=album
             state.tracks = album.tracks
         },
@@ -54,25 +57,28 @@ import axios from "axios"
                 state.isPlaying = false;
             }
         },
-        //logout
         logout(state){
             state.user={}
 
             localStorage.removeItem('user');
         },
         goToNextTrack(state){
-            if( state.currentTrackID!= state.tracks.length-1){
-            state.currentTrackID +=1
-            // state.currentTrack = state.tracks[state.currentTrackID]
-            console.log(`going to next track ${state.currentTrackID}`)
-        }
+            if(state.currentTrackID < state.tracks.length-1){
+                state.currentTrackID++
+            }else{
+                state.currentTrackID = 0
+            }
         },
         goToPreviousTrack(state){
-            if(state.currentTrackID!=0){
-            state.currentTrackID -=1
-            // state.currentTrack = state.tracks[state.currentTrackID]
-            console.log(`going to previous track ${state.currentTrackID}`)
-        }},
+            //find current track in album
+            let currentTrackIndex = state.album.findIndex(track => track.id === state.currentTrack._id)
+            console.log(currentTrackIndex)
+            // if(state.currentTrackID > 0){
+            //     state.currentTrackID--
+            // }else{
+            //     state.currentTrackID = state.tracks.length-1
+            // }
+        },
        async authorization(state,user){
             state.user = user
             if(state.user.picture)
@@ -81,7 +87,6 @@ import axios from "axios"
             localStorage.setItem('user',JSON.stringify(user))
             },
             
-
         registration(state,user){
             state.user = user
             localStorage.user = JSON.stringify(user)
@@ -100,7 +105,7 @@ import axios from "axios"
             state.trackLength = val;
         },
         likeTrack(state){
-            console.log(`Liked ${state.currentTrackID}`)
+            // console.log(`Liked ${state.currentTrackID}`)
         },
         changeTrackProgress(state,value){
             state.trackProgress=value
@@ -127,9 +132,9 @@ import axios from "axios"
         //add track to album
         addTrackToAlbum(state,obj){
             let {track,album}=obj
-            console.log(track)
-            console.log(album)
-            console.log(`track ${track._id} added to album ${album._id}`)
+            // console.log(track)
+            // console.log(album)
+            // console.log(`track ${track._id} added to album ${album._id}`)
             let reqBody={
                 trackId:track._id,
                 albumId:album._id
@@ -140,15 +145,15 @@ import axios from "axios"
             // }
             // state.album.tracks.push(track)
             //add track to albums
-            state.albums.forEach(el=>{
-                if(el._id==album._id){
-                    console.log(el.tracks)
-                    el.tracks.push(track)
-                }
-            }
+            // state.albums.forEach(el=>{
+            //     if(el._id==album._id){
+            //         // console.log(el.tracks)
+            //         el.tracks.push(track)
+            //     }
+            // }
             
-            )
-            console.log(state.albums)
+            // )
+            // // console.log(state.albums)
             
         },
         //addComment
@@ -178,10 +183,18 @@ import axios from "axios"
         },
         //get user albums
         getUserAlbums(state,albums){
-            
+            // console.log(albums)
             state.albums = albums
-            console.log(state.albums)
+            // console.log(state.albums)
+        },
+        dislikeTrack(state,trackId){
+                let reqBody={
+                    albumId:state.albums[0]._id,
+                    trackId:trackId
+                }
+             axios.post('http://localhost:5000/album/removetrack',reqBody)
         }
+
     }
     export const actions={
        async authorization({commit},user){
@@ -194,7 +207,7 @@ import axios from "axios"
                 console.log(e.response)
                 alert("Неверный логин или пароль")
             })
-            console.log(req)
+            // console.log(req)
             if(req)
            commit('authorization',req.data)
            else
@@ -287,7 +300,7 @@ import axios from "axios"
             commit('addComment',commentText)
         },
         addTag({commit},tagText){
-            console.log(tagText.target.value)
+            // console.log(tagText.target.value)
            commit('addTag',tagText.target.value)
         },
         logout({commit}){
@@ -307,6 +320,7 @@ import axios from "axios"
             
         },
         async getUserAlbums({commit},id){
+            console.log('getting user`s albums')
             let reqBody={
                 userId:id
             }
@@ -317,11 +331,20 @@ import axios from "axios"
             })
         
         },
-        addTrackToAlbum({commit},obj){
-        //    console.log(obj.track)
-        //       console.log(obj.album)
-        commit('addTrackToAlbum',obj)
+         addTrackToAlbum({commit,state,dispatch},obj){
+             commit('addTrackToAlbum',obj)
+             dispatch('getUserAlbums',state.user._id)
+           if(state.album._id==state.albums[0]._id && state.activePageID!==5){
+            console.log(state.activePageID!==5)
+            dispatch('getAlbum',state.albums[0]._id)
+           }
+            
+        
         },
-        //get all albums
-                
+         dislikeTrack({commit,state,dispatch},trackId){
+             commit('dislikeTrack',trackId)
+            dispatch('getUserAlbums',state.user._id)
+           if(state.album._id==state.albums[0]._id && state.activePageID!==5)
+             dispatch('getAlbum',state.albums[0]._id)
+        },   
     }

@@ -54,8 +54,9 @@ export default {
 
 <style>
 .component{
-  padding: 0 0 0  20px;
+  /* padding: 0 0 0  20px; */
   width: 700px;
+  margin-top: 50px;
   margin-bottom: 20px;
   height: inherit;
 }

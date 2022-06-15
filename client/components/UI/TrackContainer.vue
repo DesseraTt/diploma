@@ -9,8 +9,8 @@
        
         <p class="trackTitle">{{track.name}} - {{track.artist}}</p>
       <div class="btns">
-        <i class="gg-trash" @click.stop="dislikeTrack" v-if="checkIfInFavourites"></i>
-          <i class="gg-heart" @click.stop="likeTrack(this.track)" v-else></i>
+        <i class="gg-trash" @click.stop="dislikeTrack" v-if="isInFavourites"></i>
+          <i class="gg-heart" @click.stop="likeTrack" v-else></i>
       
       </div>
         
@@ -22,23 +22,33 @@ import {mapActions} from 'vuex'
     export default {
         data(){
             return{
-               mouseIsOver:false,     
+               mouseIsOver:false,
+            //    isInFavourites:false,     
             }
         },
         computed:{
             album(){
-                return this.$store.state.album
+                return this.$store.state.store.album
             },
             albums(){
-                return this.$store.state.albums
-            }
+                return this.$store.state.store.albums
             },
-        props:{track:Object,index:Number},  
+            //is in favourites
+            isInFavourites(){
+               let a = this.albums[0].tracks.filter(item=>item ===this.track._id)
+               if (a.length>0){
+                   return true
+               }
+               return false
+            },
+            },
+        props:{track:Object,index:Number},
         methods:{
             ...mapActions({
                 playTrack:'store/playTrack',
                 goTotrack:'store/goTotrack',
                 addTrackToAlbum:'store/addTrackToAlbum',
+                dislikeTracks:'store/dislikeTrack',
             }),
             imageSrc(pic){
                 return `http://localhost:5000/${pic}`
@@ -49,23 +59,24 @@ import {mapActions} from 'vuex'
             mouseLeaveEvent(){
                 this.mouseIsOver=false;
             },
-            likeTrack(track){
+            likeTrack(){
                   let obj={
                         album:this.albums[0],
-                        track:track
+                        track:this.track
                  }
                 this.addTrackToAlbum(obj)
             },
             dislikeTrack(){
+                this.dislikeTracks(this.track._id)
                 console.log('remove from likes')
             },
-            checkIfInFavourites(){
-               let a = this.albums[0].tracks.filter(item=>item ===track._id)
-               if (a.length>0){
-                   return true
-               }
-               return false
-            }
+            // checkIfInFavourites(){
+            //    let a = this.albums[0].tracks.filter(item=>item ===track._id)
+            //    if (a.length>0){
+            //        isInFavourites= false
+            //    }
+            //    isInFavourites= true
+            // }
             
         }     
     }

@@ -10,7 +10,7 @@
                     <label class="label">
                     <i class="material-icons">attach_file</i>
                     <span class="title">Сменить изображение профиля</span>
-                    <input type="file" id="picturefile" @input="addProfilePicture">
+                    <input type="file" id="picturefile" @input="addProfilePicture" accept=".png,.jpeg,.jpg">
                     </label>
                 </div>
                 </div>
@@ -24,7 +24,7 @@
                     <label class="label">
                     <i class="material-icons">attach_file</i>
                     <span class="title">Добавить изображение профиля</span>
-                    <input type="file" id="picturefile" @input="addProfilePicture">
+                    <input type="file" id="picturefile" @input="addProfilePicture" accept=".png,.jpeg,.jpg">
                     </label>
                 </div>
                 </div>

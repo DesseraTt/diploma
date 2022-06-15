@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <h1>Главное</h1>
+        <!-- <h1></h1> -->
         <Slider/>
         <keep-alive>
           <component :is="MainTabs.filter(item=>item.id ==activeMainPageTabID)[0].component" class="component"></component>
