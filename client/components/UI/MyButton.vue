@@ -1,6 +1,6 @@
 <template>
   <button class="btn">
-    <slot></slot>
+    <slot class="text"></slot>
   </button>
 </template>
 <script>
@@ -28,5 +28,10 @@ export default {
   background: #c0c0c0;
   transition: .2s;
   box-shadow: 3px 3px 4px 0px rgba(34, 60, 80, 0.2);
+ }
+ .text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
  }
 </style>

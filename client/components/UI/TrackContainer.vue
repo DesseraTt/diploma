@@ -35,11 +35,14 @@ import {mapActions} from 'vuex'
             },
             //is in favourites
             isInFavourites(){
-               let a = this.albums[0].tracks.filter(item=>item ===this.track._id)
+                // console.log(this.albums)
+                if(this.albums.length>0){
+               let a = this.albums[0].tracks.filter(item=>item ==this.track._id)
+            //    console.log(2)
                if (a.length>0){
                    return true
                }
-               return false
+               return false}
             },
             },
         props:{track:Object,index:Number},

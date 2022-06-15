@@ -4,7 +4,7 @@
             <h2 v-if="activePageID!=5"> {{album.name}}</h2>
             <h2 v-else>Найдено: </h2>
             <div v-for="item in tracks" :key="item.id">
-                <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" @click.native.stop="gotoTrack"/>  
+                <TrackContainer :track ="item" :index="tracks.findIndex(el=>el ==item)+1" />  
             </div>
             
     </div>
@@ -50,9 +50,11 @@ import TrackContainer from './UI/TrackContainer.vue'
 
 <style >
 .trackholder{
+    position: fixed;
+    left: 57%;
     width: 450px;
     padding: 20px;
-    height: 100%;
+    height: 850px;
     border-left: 1px #e8e8e8 solid;
     overflow-y: auto;
 }

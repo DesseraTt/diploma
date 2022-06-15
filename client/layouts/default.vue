@@ -27,11 +27,12 @@ import TrackHolder from "../components/TrackHolder.vue";
 
 .wrapper{
     margin: 0;padding: 0 30px;
+    padding-bottom: 38px;
     background: #fff;
     width: 1200px;
     margin: 0 auto;
-    height: 95vh;
-  overflow-y:scroll ;
+    min-height: 95vh;
+  /* overflow-y:scroll ; */
     flex: 1 0 auto;
     color:rgb(61, 61, 61);
 }

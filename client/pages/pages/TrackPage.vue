@@ -25,7 +25,7 @@
                     <i class="material-icons">attach_file</i>
                     <span class="title" v-if="isAudioSelected"><i class="gg-check-o"></i></span>
                     <span class="title" v-else>Добавить аудио</span>
-                    <input type="file" id="audiofile" accept=".mp3">
+                    <input type="file" id="audiofile" accept=".mp3" @input="CheckAudioSelected">
                     </label>
                 </div>
                 </div>
@@ -38,7 +38,7 @@
                     <i class="material-icons">attach_file</i>
                     <span class="title" v-if="isPictureSelected"><i class="gg-check-o"></i></span>
                     <span class="title" v-else>Добавить картинку</span>
-                    <input type="file" id="picturefile"  accept=".png,.jpeg,.jpg">
+                    <input type="file" id="picturefile"  accept=".png,.jpeg,.jpg" @input="CheckPictireSelected">
                     </label>
                 </div>
                 </div>
@@ -130,7 +130,7 @@ align-items: center;
     justify-content: center;
 }
 .trackText{
-width: 100%;
+width: 650px;
 outline: none;
 border: 1px solid #facc44;
 }

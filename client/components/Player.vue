@@ -11,10 +11,10 @@
         >
         <div class="trackControls" v-if="currentTrack">
             <div  class="leftControls">
-                <li class="btn" @click="goToPreviousTrack"><PreviousBtn/></li>
+                <!-- <li class="btn" @click="goToPreviousTrack"><PreviousBtn/></li> -->
                 <li class="btn" v-if="isPlaying" @click="playPause" ><PlayBtn/></li>
                 <li class="btn" v-else @click="playPause"><PauseBtn/></li>
-                <li class="btn" @click="goToNextTrack"><NextBtn/></li>
+                <!-- <li class="btn" @click="goToNextTrack"><NextBtn/></li> -->
             </div>
           
           <li class="centerControls">
@@ -153,7 +153,7 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
     margin-right: 5px;
 }
 .leftControls{
-    width: 200px;
+    width: 100px;
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -165,16 +165,19 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
     align-items:center;
 }
 .centerControls{
-     width: 500px;
+     width: 550px;
     display:flex;
     justify-content:space-around;
     align-items:center;
 }
 .player{
-    margin: 0;padding: 0;
+    position: fixed;
+    bottom: 0;
+    left: 18.5%;
+    margin: 0 auto;padding: 0;
     background: #fff;
    width: 1200px;
-   height: 5vh;
+   height: 55px;
    margin: 0 auto;
     flex: 0 0 auto;
     display: flex;
@@ -186,8 +189,8 @@ import VolumeBtn from '@/components/UI/VolumeBtn.vue'
         color:rgb(61, 61, 61);
 }
 .playerTrackPicture{
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
     object-fit: contain;
 }
 .trackProgress[type='range'] {

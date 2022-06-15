@@ -32,7 +32,7 @@ import axios from "axios"
     }
     export const mutations={
         getAlbum(state,album){
-            console.log(album)
+            // console.log(album)
             state.album=album
             state.tracks = album.tracks
         },
@@ -72,7 +72,7 @@ import axios from "axios"
         goToPreviousTrack(state){
             //find current track in album
             let currentTrackIndex = state.album.findIndex(track => track.id === state.currentTrack._id)
-            console.log(currentTrackIndex)
+            // console.log(currentTrackIndex)
             // if(state.currentTrackID > 0){
             //     state.currentTrackID--
             // }else{
@@ -117,8 +117,7 @@ import axios from "axios"
         },
         changeActivePage(state,id){
             state.activePageID = id;
-            
-        },
+            },
         changeActiveMainPageTab(state,id){
             state.activeMainPageTabID = id;
         },
@@ -131,6 +130,7 @@ import axios from "axios"
         },
         //add track to album
         addTrackToAlbum(state,obj){
+            // console.log('adding')
             let {track,album}=obj
             // console.log(track)
             // console.log(album)
@@ -222,10 +222,10 @@ import axios from "axios"
             .then(resp=>{
                 if(resp){
                 commit('registration',resp.data)
-                let authBody = new FormData()
-                authBody.append('email',user.email)
-                authBody.append('password',user.password)
-                commit('authorization',authBody)
+                // let authBody = new FormData()
+                // authBody.append('email',user.email)
+                // authBody.append('password',user.password)
+                // commit('authorization',authBody)
                 }else{
                     console.log('error')
                 }
@@ -261,8 +261,12 @@ import axios from "axios"
         watchTrackProgress({commit},value){
             commit('watchTrackProgress',value)
         },
-        changeActivePage({commit},id){
+        async changeActivePage({commit},id){
             commit('changeActivePage',id)
+            if(id==5){
+                let resp =await axios.get('http://localhost:5000/tracks/search?query=' +'')
+                commit('searchTracks',resp.data)
+            }
         },
         changeActiveMainPageTab({commit},id){
             commit('changeActiveMainPageTab',id)
@@ -320,7 +324,7 @@ import axios from "axios"
             
         },
         async getUserAlbums({commit},id){
-            console.log('getting user`s albums')
+            // console.log('getting user`s albums')
             let reqBody={
                 userId:id
             }
@@ -331,20 +335,21 @@ import axios from "axios"
             })
         
         },
-         addTrackToAlbum({commit,state,dispatch},obj){
-             commit('addTrackToAlbum',obj)
-             dispatch('getUserAlbums',state.user._id)
-           if(state.album._id==state.albums[0]._id && state.activePageID!==5){
-            console.log(state.activePageID!==5)
-            dispatch('getAlbum',state.albums[0]._id)
+        async  addTrackToAlbum({commit,state,dispatch},obj){
+            // console.log(obj)
+            await commit('addTrackToAlbum',obj)
+            await dispatch('getUserAlbums',state.user._id)
+           if(state.album._id==state.albums[0]._id && state.activePageID===1){
+            // console.log(state.activePageID!==5)
+            await dispatch('getAlbum',state.albums[0]._id)
            }
             
         
         },
-         dislikeTrack({commit,state,dispatch},trackId){
-             commit('dislikeTrack',trackId)
-            dispatch('getUserAlbums',state.user._id)
-           if(state.album._id==state.albums[0]._id && state.activePageID!==5)
-             dispatch('getAlbum',state.albums[0]._id)
+         async dislikeTrack({commit,state,dispatch},trackId){
+             await commit('dislikeTrack',trackId)
+             await dispatch('getUserAlbums',state.user._id)
+           if(state.album._id==state.albums[0]._id && state.activePageID===1)
+           await dispatch('getAlbum',state.albums[0]._id)
         },   
     }
